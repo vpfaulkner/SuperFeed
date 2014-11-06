@@ -1,23 +1,28 @@
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
+  context "user validations" do
+    should validate_presence_of(:name)
+    should validate_presence_of(:email)
+    should validate_uniqueness_of(:email)
+  end
+
   context "User class" do
     should "be able to create a new user via auth_hash" do
-      auth_hash = { "provider" => "test",
-                    "uid" => "10",
+      auth_hash = { "provider" => "github",
+                    "uid" => "1",
                     "info" => {
                         "name" => "Test User",
-                        "email" => "user@example.org"
+                        "email" => "user@user.org"
                     },
-                    "credentials" => { "token" => "TESTTOKEN" }
+                    "credentials" => { "token" => "TOKEN" }
                   }
       user = User.find_or_create_by_auth_hash(auth_hash)
       assert_not_nil user
       assert_equal "Test User", user.name
       assert user.persisted?
-
       assert_includes user.authorizations,
-                      Authorization.find_by(provider: "test", uid: "10")
+                      Authorization.find_by(provider: "github", uid: "1")
     end
 
     should "be able to find an existing user via auth_hash" do
@@ -33,9 +38,5 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
-  context "a user" do
-    should validate_presence_of(:name)
-    should validate_presence_of(:email)
-    should validate_uniqueness_of(:email)
-  end
+
 end

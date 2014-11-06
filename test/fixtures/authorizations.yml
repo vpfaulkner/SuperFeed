@@ -1,13 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  provider: MyString
-  uid: MyString
-  token: MyString
-  user_id: 
+  provider: Github
+  uid: 1
+  token: 1
+  user: one
 
 two:
-  provider: MyString
-  uid: MyString
-  token: MyString
-  user_id: 
+  provider: LinkedIn
+  uid: 2
+  token: 2
+  user: two
