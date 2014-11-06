@@ -1,13 +1,7 @@
-<% if logged_in? %>
-  <p>Logged in as <%= current_user.name %></p>
-
-  <% if @repos %>
-    <ul>
-      <% @repos.each do |repo| %>
-        <li><%= link_to repo['full_name'], repo['html_url'] %></li>
-      <% end %>
-    </ul>
-  <% end %>
-<% else %>
-  <%= link_to "Log in via GitHub", "/auth/github" %>
-<% end %>
+<h1>Welcome to SuperFeed!</h1>
+<h4>Add your feed below</h4>
+<%= link_to "Add your Github", "/auth/github" %>
+<br>
+<%= link_to "Add your Twitter", "/auth/twitter" %>
+<br>
+<%= link_to "Add your LinkedIn", "/auth/linkedin" %>
