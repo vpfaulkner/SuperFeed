@@ -2,6 +2,14 @@
 <h4>Add your feed below</h4>
 <%= link_to "Add your Github", "/auth/github" %>
 <br>
+<h4>Github Feed</h4>
+<% @response.each do |item| %>
+<ul>
+  <li><%= Time.parse(item["updated_at"]).strftime("%b %d at %I:%M%p" ) %> | <%= item["name"] %></li>
+</ul>
+<% end %>
+
+<br>
 <%= link_to "Add your Twitter", "/auth/twitter" %>
 <br>
 <%= link_to "Add your LinkedIn", "/auth/linkedin" %>
