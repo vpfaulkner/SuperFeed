@@ -10,7 +10,7 @@ class HomepagesController < ApplicationController
     if github_authentication
       @github_user = HTTParty.get("https://api.github.com/user", { :body => {}, :headers => {"authorization" => "token #{github_authentication.token}", "User-Agent" => "SuperFeed"} })
       @github_username = @github_user["login"]
-      @github_response = HTTParty.get("https://api.github.com/users/#{@twitter_username}/received_events", { :body => {}, :headers => {"authorization" => "token #{github_authentication.token}", "User-Agent" => "SuperFeed"} })
+      @github_response = HTTParty.get("https://api.github.com/users/#{@github_username}/received_events", { :body => {}, :headers => {"authorization" => "token #{github_authentication.token}", "User-Agent" => "SuperFeed"} })
     elsif twitter_authentication
       @twitter_username = @twitter_user["login"]
       @twitter_response = HTTParty.get("https://api.twitter.com/1.1/search/tweets.json#{@twitter_username}", { :body => {}, :headers => {"authorization" => "token #{twitter_authentication.token}", "User-Agent" => "SuperSuperFeed"} })
