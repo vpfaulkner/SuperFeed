@@ -1,37 +1,39 @@
 <h1>Welcome to SuperFeed!</h1>
 <% if @github_response %>
-  <h4>Github Feed</h4>
-  <ul>
-    <% @github_response.each do |item| %>
-      <li>
-        <img src="<%= item["actor"]["avatar_url"] %>" class="avatar_pic" />
-        <%= Time.parse(item["created_at"]).strftime("%b %d at %I:%M%p" ) %> |
-        <%= item["actor"]["login"] %>
-        <% if item["type"] == "CreateEvent" %>
-          <%= "created repository" %>
-          <%= item["repo"]["name"] %>
-        <% elsif item["type"] == "ForkEvent" %>
-          <%= "forked " %>
-          <%= item["repo"]["name"] %>
-          <%= "to" %>
-          <%= item["payload"]["forkee"]["full_name"] %>
-        <% elsif item["type"] == "PushEvent" %>
-          <%= "pushed to " %>
-          <%= item["payload"]["commits"][0]["message"] if item["payload"]["commits"] %>
-        <% elsif item["type"] == "MemberEvent" %>
-          <%= item["payload"]["action"] %>
-          <%= item["payload"]["member"]["login"] %>
-          <%= "to" %>
-          <%= item["repo"]["name"] %>
-        <% elsif item["type"] == "PullRequestEvent" %>
-          <%= item["payload"]["action"] %>
-          <%= "pull request from" %>
-          <%= item["repo"]["name"] %>
-        <% end %>
-      </li>
-    <% end %>
-    <li><%= link_to "Disconnect your Github", "/auth/github" %></li>
-  </ul>
+  <% @github_response.each do |item| %>
+  <div class="panel">
+    <%=image_tag("Octocat.png", :class => "api_logo") %>
+    <h5>
+      <img src="<%= item["actor"]["avatar_url"] %>" class="avatar_pic" />
+      <%= Time.parse(item["created_at"]).strftime("%b %d at %I:%M%p" ) %> |
+      <%= item["actor"]["login"] %>
+    </h5>
+    <p>
+      <% if item["type"] == "CreateEvent" %>
+        <%= "created repository" %>
+        <%= item["repo"]["name"] %>
+      <% elsif item["type"] == "ForkEvent" %>
+        <%= "forked " %>
+        <%= item["repo"]["name"] %>
+        <%= "to" %>
+        <%= item["payload"]["forkee"]["full_name"] %>
+      <% elsif item["type"] == "PushEvent" %>
+        <%= "pushed to " %>
+        <%= item["repo"]["name"] %>
+        <%= item["payload"]["commits"][0]["message"] if item["payload"]["commits"] %>
+      <% elsif item["type"] == "MemberEvent" %>
+        <%= item["payload"]["action"] %>
+        <%= item["payload"]["member"]["login"] %>
+        <%= "to" %>
+        <%= item["repo"]["name"] %>
+      <% elsif item["type"] == "PullRequestEvent" %>
+        <%= item["payload"]["action"] %>
+        <%= "pull request from" %>
+        <%= item["repo"]["name"] %>
+      <% end %>
+    </p>
+  </div>
+  <% end %>
 <% else %>
   <%= link_to "Add your Github", "/auth/github" %>
 <% end %>

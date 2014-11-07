@@ -48,3 +48,4 @@ group :development, :test do
 end
 gem "httparty"
 gem "twitter"
+gem 'foundation-rails'
