@@ -1,13 +1,22 @@
 <h1>Welcome to SuperFeed!</h1>
-<h4>Your Feeds </h4>
 <% if @github_response %>
   <h4>Github Feed</h4>
   <ul>
-    <% @response.each do |item| %>
+    <% @github_response.each do |item| %>
       <li>
-        <img src="<%= item["owner"]["avatar_url"] %>" class="avatar_pic" />
-        <%= Time.parse(item["updated_at"]).strftime("%b %d at %I:%M%p" ) %> |
-        <%= item["name"] %></li>
+        <img src="<%= item["actor"]["avatar_url"] %>" class="avatar_pic" />
+        <%= Time.parse(item["created_at"]).strftime("%b %d at %I:%M%p" ) %> |
+        <%= item["actor"]["login"] %>
+        <% if item["payload"]["action"] == "added" %>
+          <%= item["payload"]["action"] %>
+          <%= item["payload"]["member"]["login"] %>
+          <%= "to" %>
+          <%= item["repo"]["name"] %>
+
+        <% else %>
+          <%= item["payload"]["commits"][0]["message"] if item["payload"]["commits"] %>
+        <% end %>
+      </li>
     <% end %>
     <li><%= link_to "Disconnect your Github", "/auth/github" %></li>
   </ul>

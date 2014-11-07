@@ -3,7 +3,9 @@ class HomepagesController < ApplicationController
   if logged_in?
     github_authentication = current_user.authorizations.find_by(provider: :github)
     if github_authentication
-      @github_response = HTTParty.get('https://api.github.com/user/repos', { :body => {}, :headers => {"authorization" => "token #{github_authentication.token}", "User-Agent" => "SuperFeed"} })
+      @github_user = HTTParty.get("https://api.github.com/user", { :body => {}, :headers => {"authorization" => "token #{github_authentication.token}", "User-Agent" => "SuperFeed"} })
+      @github_username = @github_user["login"]
+      @github_response = HTTParty.get("https://api.github.com/users/#{@github_username}/received_events", { :body => {}, :headers => {"authorization" => "token #{github_authentication.token}", "User-Agent" => "SuperFeed"} })
     end
   end
   end
