@@ -1,13 +1,10 @@
 class Github < ActiveRecord::Base
 
-    def self.get_data(github_authentication)
-
-        if github_authentication
-          github_user = HTTParty.get("https://api.github.com/user", { :body => {}, :headers => {"authorization" => "token #{github_authentication.token}", "User-Agent" => "SuperFeed"} })
-          github_username = github_user["login"]
-          github_response = HTTParty.get("https://api.github.com/users/#{github_username}/received_events", { :body => {}, :headers => {"authorization" => "token #{github_authentication.token}", "User-Agent" => "SuperFeed"} })
-          github_feed  = transform_data(github_response)
-        end
+    def self.request_data(github_authentication)
+        github_user = HTTParty.get("https://api.github.com/user", { :body => {}, :headers => {"authorization" => "token #{github_authentication.token}", "User-Agent" => "SuperFeed"} })
+        github_username = github_user["login"]
+        github_response = HTTParty.get("https://api.github.com/users/#{github_username}/received_events", { :body => {}, :headers => {"authorization" => "token #{github_authentication.token}", "User-Agent" => "SuperFeed"} })
+        github_feed  = transform_data(github_response)
 
         github_feed
 
@@ -20,7 +17,7 @@ class Github < ActiveRecord::Base
         item_hash[:destination_url] = item["repo"]["url"]
         item_hash[:image_url] = "Octocat.png"
         item_hash[:name_image_url] = item["actor"]["avatar_url"]
-        item_hash[:timestamp] = item["actor"]["avatar_url"]
+        item_hash[:timestamp] = item["created_at"]
         item_hash[:name] = item["actor"]["login"]
         if item["type"] == "CreateEvent"
           item_hash[:text] = "created repository #{item["repo"]["name"]}"
