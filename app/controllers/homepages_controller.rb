@@ -19,7 +19,6 @@ class HomepagesController < ApplicationController
       @linkedin_feed.each { |message| @feed.push(message) }
     end
 
-      @feed.sort_by { |message| message[:timestamp] }
-    end
+    @feed.sort_by { |message| message[:timestamp] }
   end
 end
