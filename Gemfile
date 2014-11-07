@@ -47,3 +47,4 @@ group :development, :test do
   gem "pry-rails"
 end
 gem "httparty"
+gem 'foundation-rails'

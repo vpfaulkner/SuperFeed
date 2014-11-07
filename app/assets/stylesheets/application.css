@@ -12,9 +12,21 @@
  *
  *= require_tree .
  *= require_self
+ *= require foundation_and_overrides
+
  */
 
 .avatar_pic {
   width: 50px;
   border-radius: 25px;
+}
+
+ul {
+    list-style-type: none;
+}
+
+.api_logo {
+  width: 100px;
+  float: left;
+  margin-right: 20px;
 }
