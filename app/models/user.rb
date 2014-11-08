@@ -10,7 +10,8 @@ class User < ActiveRecord::Base
     auth.update!(token: auth_hash["credentials"]["token"])
 
     if current_user
-      auth.user = current_user
+      auth.update!(user_id: current_user.id)
+    
     else
       unless auth.user
         auth.create_user!(name: auth_hash["info"]["name"],

@@ -12,4 +12,10 @@ class HomepagesController < ApplicationController
       @feed.sort_by { |message| message[:timestamp] }
     end
   end
+
+  def destroy_authorization
+    auth = current_user.authorizations.find_by(provider: params["provider"])
+    auth.destroy
+    redirect_to root_path
+  end
 end

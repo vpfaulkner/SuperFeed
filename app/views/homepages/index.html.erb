@@ -1,6 +1,10 @@
 <h1>Welcome to SuperFeed!</h1>
 <h3>Feeds:</h3>
-<a href="#">Disconnect Github</a>
+<% if current_user.authorizations.find_by(provider: "github") %>
+  <%= link_to "Disconnect your Github account", destroy_auth_path("github"), method: :delete %>
+<% else %>
+  <%= link_to "Connect your Github account", "/auth/github" %>
+<% end %>
   <% @feed.each do |item| %>
     <a href="app/assets/images/<%= item[:destination_url] %>.png" class="panel_links">
       <div class="panel">
