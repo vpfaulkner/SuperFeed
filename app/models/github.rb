@@ -18,6 +18,7 @@ class Github < ActiveRecord::Base
         item_hash[:image_url] = "Octocat.png"
         item_hash[:name_image_url] = item["actor"]["avatar_url"]
         item_hash[:timestamp] = item["created_at"]
+        item_hash[:source] = "github"
         item_hash[:name] = item["actor"]["login"]
         if item["type"] == "CreateEvent"
           item_hash[:text] = "created repository #{item["repo"]["name"]}"

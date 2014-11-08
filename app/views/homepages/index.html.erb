@@ -4,30 +4,39 @@
       <li class="name">
         <h1><a href="/">Superfeed</a></h1>
       </li>
-       <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
     </ul>
-
     <section class="top-bar-section">
-      <!-- Right Nav Section -->
-
-
-      <!-- Left Nav Section -->
-      <ul class="left">
-        <% if current_user.authorizations.find_by(provider: "github") %>
-          <li><%= link_to "Disconnect your Github account", destroy_auth_path("github"), method: :delete %></li>
-        <% else %>
-          <li><%= link_to "Connect your Github account", "/auth/github" %></li>
-        <% end %>
-        <% if current_user.authorizations.find_by(provider: "linkedin") %>
-          <li><%= link_to "Disconnect your LinkedIn account", destroy_auth_path("linkedin"), method: :delete %></li>
-        <% else %>
-          <li><%= link_to "Connect your LinkedIn account", "/auth/linkedin" %></li>
-        <% end %>
-        <% if current_user.authorizations.find_by(provider: "twitter") %>
-          <li><%= link_to "Disconnect your Twitter account", destroy_auth_path("twitter"), method: :delete %></li>
-        <% else %>
-          <li><%= link_to "Connect your Twitter account", "/auth/twitter" %></li>
-        <% end %>
+      <ul class="left" class="dropdown">
+        <li class="has-dropdown">
+          <a href="#">Github</a>
+          <ul class="dropdown">
+            <% if current_user.authorizations.find_by(provider: "github") %>
+              <li><%= link_to "Disconnect your Github account", destroy_auth_path("github"), method: :delete %></li>
+            <% else %>
+              <li><%= link_to "Connect your Github account", "/auth/github" %></li>
+            <% end %>
+          </ul>
+        </li>
+        <li class="has-dropdown">
+          <a href="#">LinkedIn</a>
+          <ul class="dropdown">
+            <% if current_user.authorizations.find_by(provider: "linkedin") %>
+              <li><%= link_to "Disconnect your LinkedIn account", destroy_auth_path("linkedin"), method: :delete %></li>
+            <% else %>
+              <li><%= link_to "Connect your LinkedIn account", "/auth/linkedin" %></li>
+            <% end %>
+          </ul>
+        </li>
+        <li class="has-dropdown">
+          <a href="#">Twitter</a>
+          <ul class="dropdown">
+            <% if current_user.authorizations.find_by(provider: "twitter") %>
+              <li><%= link_to "Disconnect your Twitter account", destroy_auth_path("twitter"), method: :delete %></li>
+            <% else %>
+              <li><%= link_to "Connect your Twitter account", "/auth/twitter" %></li>
+            <% end %>
+          </ul>
+        </li>
       </ul>
     </section>
   </nav>
@@ -35,7 +44,7 @@
 
 <% @feed.each do |item| %>
   <a href="app/assets/images/<%= item[:destination_url] %>.png" class="panel_links">
-    <div class="panel">
+    <div class="panel" class="<%= item[:source] %>">
       <%= image_tag(item[:image_url], class: "api_logo") %>
       <h5>
         <img src="<%= item[:name_image_url] %>" class="avatar_pic" />

@@ -11,6 +11,7 @@ class Linkedin < ActiveRecord::Base
       item_hash = {}
       item_hash[:image_url] = "Linkedin.png"
       item_hash[:timestamp] = Time.at(item["timestamp"].to_f / 1000).iso8601
+      item_hash[:source] = "linkedin"
       if item["update_type"] == "SHAR"
         item_hash[:name] = "#{item["update_content"]["person"]["first_name"]} #{item["update_content"]["person"]["last_name"]}"
         item_hash[:name_image_url] = item["update_content"]["person"]["picture_url"]
