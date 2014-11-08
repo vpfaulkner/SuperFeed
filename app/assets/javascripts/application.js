@@ -17,3 +17,15 @@
 //= require_tree .
 
 $(function(){ $(document).foundation(); });
+
+$("#github_filter").click(function(){
+  $(".panel#github").toggle();
+});
+
+$("#linkedin_filter").click(function(){
+  $(".panel#linkedin").toggle();
+});
+
+$("#twitter_filter").click(function(){
+  $(".panel#linkedin").toggle();
+});
