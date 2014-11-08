@@ -1,23 +1,38 @@
-<h1>Welcome to SuperFeed!</h1>
-<h3>Feeds:</h3>
-<% if current_user.authorizations.find_by(provider: "github") %>
-  <%= link_to "Disconnect your Github account", destroy_auth_path("github"), method: :delete %>
-<% else %>
-  <%= link_to "Connect your Github account", "/auth/github" %>
-<% end %>
-<br>
-<% if current_user.authorizations.find_by(provider: "linkedin") %>
-  <%= link_to "Disconnect your LinkedIn account", destroy_auth_path("linkedin"), method: :delete %>
-<% else %>
-  <%= link_to "Connect your LinkedIn account", "/auth/linkedin" %>
-<% end %>
-<br>
-<% if current_user.authorizations.find_by(provider: "twitter") %>
-  <%= link_to "Disconnect your Twitter account", destroy_auth_path("twitter"), method: :delete %>
-<% else %>
-  <%= link_to "Connect your Twitter account", "/auth/twitter" %>
-<% end %>
-<br>
+<div class="fixed">
+  <nav class="top-bar" data-topbar role="navigation">
+    <ul class="title-area">
+      <li class="name">
+        <h1><a href="/">Superfeed</a></h1>
+      </li>
+       <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+    </ul>
+
+    <section class="top-bar-section">
+      <!-- Right Nav Section -->
+
+
+      <!-- Left Nav Section -->
+      <ul class="left">
+        <% if current_user.authorizations.find_by(provider: "github") %>
+          <li><%= link_to "Disconnect your Github account", destroy_auth_path("github"), method: :delete %></li>
+        <% else %>
+          <li><%= link_to "Connect your Github account", "/auth/github" %></li>
+        <% end %>
+        <% if current_user.authorizations.find_by(provider: "linkedin") %>
+          <li><%= link_to "Disconnect your LinkedIn account", destroy_auth_path("linkedin"), method: :delete %></li>
+        <% else %>
+          <li><%= link_to "Connect your LinkedIn account", "/auth/linkedin" %></li>
+        <% end %>
+        <% if current_user.authorizations.find_by(provider: "twitter") %>
+          <li><%= link_to "Disconnect your Twitter account", destroy_auth_path("twitter"), method: :delete %></li>
+        <% else %>
+          <li><%= link_to "Connect your Twitter account", "/auth/twitter" %></li>
+        <% end %>
+      </ul>
+    </section>
+  </nav>
+</div>
+
 <% @feed.each do |item| %>
   <a href="app/assets/images/<%= item[:destination_url] %>.png" class="panel_links">
     <div class="panel">

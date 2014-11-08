@@ -27,6 +27,12 @@ class Linkedin < ActiveRecord::Base
         item_hash[:name_image_url] = "Linkedin.png"
         item_hash[:text] = item["update_content"]["company_status_update"]["share"]["comment"]
         item_hash[:destination_url] = item["update_content"]["company_status_update"]["share"]["content"]["submitted_url"]
+      elsif item["update_type"] == "PFOL"
+        item_hash[:name] = "#{item["update_content"]["person"]["first_name"]} #{item["update_content"]["person"]["last_name"]}"
+        item_hash[:name_image_url] = item["update_content"]["person"]["picture_url"]
+        item_hash[:text] = item["update_content"]["company_status_update"]["share"]["comment"]
+        item_hash[:destination_url] = item["update_content"]["company_status_update"]["share"]["content"]["submitted_url"]
+
       end
       feed.push(item_hash)
     end
