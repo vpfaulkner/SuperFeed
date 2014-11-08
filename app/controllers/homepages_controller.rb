@@ -5,12 +5,16 @@ class HomepagesController < ApplicationController
       if current_user.authorizations.find_by(provider: :github)
         @github_feed = Github.request_data(current_user.authorizations.find_by(provider: :github))
         @github_feed.each { |message| @feed.push(message) }
-      elsif current_user.authorizations.find_by(provider: :linkedin)
+      end
+      if current_user.authorizations.find_by(provider: :linkedin)
         @linkedin_feed = Linkedin.request_data(current_user.authorizations.find_by(provider: :linkedin))
         @linkedin_feed.each { |message| @feed.push(message) }
       end
-      @feed.sort_by { |message| message[:timestamp] }
+      @feed.each { |message| message[:timestamp] = message[:timestamp].to_time.iso8601 }
+
+      @feed.sort!{|a,b| b[:timestamp] <=> a[:timestamp]}
     end
+
   end
 
   def destroy_authorization

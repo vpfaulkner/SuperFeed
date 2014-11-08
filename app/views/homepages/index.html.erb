@@ -5,23 +5,31 @@
 <% else %>
   <%= link_to "Connect your Github account", "/auth/github" %>
 <% end %>
-  <% @feed.each do |item| %>
-    <a href="app/assets/images/<%= item[:destination_url] %>.png" class="panel_links">
-      <div class="panel">
-        <%= image_tag(item[:image_url], class: "api_logo") %>
-        <h5>
-          <img src="<%= item[:name_image_url] %>" class="avatar_pic" />
-          <%= Time.parse(item[:timestamp]).strftime("%b %d at %I:%M%p" ) %> |
-          <%= item[:name] %>
-        </h5>
-        <p>
-          <%= item[:text] %>
-        </p>
-      </div>
-    </a>
-  <% end %>
-
 <br>
-<%= link_to "Add your LinkedIn", "/auth/linkedin" %>
+<% if current_user.authorizations.find_by(provider: "linkedin") %>
+  <%= link_to "Disconnect your LinkedIn account", destroy_auth_path("linkedin"), method: :delete %>
+<% else %>
+  <%= link_to "Connect your LinkedIn account", "/auth/linkedin" %>
+<% end %>
 <br>
-<%= link_to "Add your Twitter", "/auth/twitter" %>
+<% if current_user.authorizations.find_by(provider: "twitter") %>
+  <%= link_to "Disconnect your Twitter account", destroy_auth_path("twitter"), method: :delete %>
+<% else %>
+  <%= link_to "Connect your Twitter account", "/auth/twitter" %>
+<% end %>
+<br>
+<% @feed.each do |item| %>
+  <a href="app/assets/images/<%= item[:destination_url] %>.png" class="panel_links">
+    <div class="panel">
+      <%= image_tag(item[:image_url], class: "api_logo") %>
+      <h5>
+        <img src="<%= item[:name_image_url] %>" class="avatar_pic" />
+        <%= Time.parse(item[:timestamp]).strftime("%b %d at %I:%M%p" ) %> |
+        <%= item[:name] %>
+      </h5>
+      <p>
+        <%= item[:text] %>
+      </p>
+    </div>
+  </a>
+<% end %>
