@@ -14,7 +14,6 @@ class Github < ActiveRecord::Base
       feed = []
       github_response.each do |item|
         item_hash = {}
-        item_hash[:destination_url] = item["repo"]["url"]
         item_hash[:image_url] = "Octocat.png"
         item_hash[:name_image_url] = item["actor"]["avatar_url"]
         item_hash[:timestamp] = item["created_at"]
@@ -22,14 +21,19 @@ class Github < ActiveRecord::Base
         item_hash[:name] = item["actor"]["login"]
         if item["type"] == "CreateEvent"
           item_hash[:text] = "created repository #{item["repo"]["name"]}"
+          item_hash[:destination_url] = item["repo"]["url"]
         elsif item["type"] == "ForkEvent"
           item_hash[:text] = "forked #{item["repo"]["name"]} to #{item["payload"]["forkee"]["full_name"]}"
+          item_hash[:destination_url] = item["payload"]["forkee"]["url"]
         elsif item["type"] == "PushEvent"
           item_hash[:text] = "pushed to #{item["repo"]["name"]} #{item["payload"]["commits"][0]["message"]}"
+          item_hash[:destination_url] = item["repo"]["url"]
         elsif item["type"] == "MemberEvent"
           item_hash[:text] = "#{item["payload"]["action"]} #{item["payload"]["member"]["login"]} to #{item["repo"]["name"]}"
+          item_hash[:destination_url] = item["repo"]["url"]
         else item["type"] == "PullRequestEvent"
           item_hash[:text] = "#{item["payload"]["action"]} pull request from #{item["repo"]["name"]}"
+          item_hash[:destination_url] = item["repo"]["url"]
         end
         feed.push(item_hash)
       end

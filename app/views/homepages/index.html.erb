@@ -43,7 +43,7 @@
 </div>
 
 <% @feed.each do |item| %>
-  <a href="app/assets/images/<%= item[:destination_url] %>.png" class="panel_links">
+  <a href="<%= item[:destination_url] %>" class="panel_links">
     <div class="panel" id="<%= item[:source] %>">
       <%= image_tag(item[:image_url], class: "api_logo") %>
       <h5>

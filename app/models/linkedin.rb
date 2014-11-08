@@ -38,12 +38,12 @@ class Linkedin < ActiveRecord::Base
           item_hash[:name] = "#{item["update_content"]["person"]["first_name"]} #{item["update_content"]["person"]["last_name"]}"
           item_hash[:name_image_url] = item["update_content"]["person"]["picture_url"]
           item_hash[:text] = "#{item["update_content"]["person"]["first_name"]} #{item["update_content"]["person"]["last_name"]} likes #{item["update_content"]["update_action"]["original_update"]["update_content"]["person"]["current_share"]["content"]["title"]}"
-          item_hash[:destination_url] = item["update_content"]["update_action"]["original_update"]["update_content"]["person"]["current_share"]["shortened_url"]
+          item_hash[:destination_url] = item["update_content"]["person"]["site_standard_profile_request"]["url"]
         elsif item["update_content"]["update_action"]["action"]["code"] == "COMMENT"
           item_hash[:name] = "#{item["update_content"]["person"]["first_name"]} #{item["update_content"]["person"]["last_name"]}"
           item_hash[:name_image_url] = item["update_content"]["person"]["picture_url"]
           item_hash[:text] = "#{item["update_content"]["person"]["first_name"]} #{item["update_content"]["person"]["last_name"]} commented: #{item["update_content"]["update_action"]["original_update"]["update_content"]["person"]["current_share"]["comment"]}"
-          # ADD DESTINATION URL
+          item_hash[:destination_url] = item["update_content"]["person"]["site_standard_profile_request"]["url"]
         end
       end
       feed.push(item_hash)
