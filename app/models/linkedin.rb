@@ -25,7 +25,7 @@ class Linkedin < ActiveRecord::Base
         item_hash[:destination_url] = item["update_content"]["person"]["site_standard_profile_request"]["url"]
       elsif item["update_type"] == "CMPY"
         item_hash[:name] = item["update_content"]["company"]["name"]
-        item_hash[:name_image_url] = "Linkedin.png"
+        item_hash[:name_image_url] = item["update_content"]["company_status_update"]["share"]["content"]["submitted_image_url"]
         item_hash[:text] = item["update_content"]["company_status_update"]["share"]["comment"]
         item_hash[:destination_url] = item["update_content"]["company_status_update"]["share"]["content"]["submitted_url"]
       elsif item["update_type"] == "PFOL"
@@ -33,7 +33,18 @@ class Linkedin < ActiveRecord::Base
         item_hash[:name_image_url] = item["update_content"]["person"]["picture_url"]
         item_hash[:text] = item["update_content"]["company_status_update"]["share"]["comment"]
         item_hash[:destination_url] = item["update_content"]["company_status_update"]["share"]["content"]["submitted_url"]
-
+      elsif item["update_type"] == "VIRL"
+        if item["update_content"]["update_action"]["action"]["code"] == "LIKE"
+          item_hash[:name] = "#{item["update_content"]["person"]["first_name"]} #{item["update_content"]["person"]["last_name"]}"
+          item_hash[:name_image_url] = item["update_content"]["person"]["picture_url"]
+          item_hash[:text] = "#{item["update_content"]["person"]["first_name"]} #{item["update_content"]["person"]["last_name"]} likes #{item["update_content"]["update_action"]["original_update"]["update_content"]["person"]["current_share"]["content"]["title"]}"
+          item_hash[:destination_url] = item["update_content"]["update_action"]["original_update"]["update_content"]["person"]["current_share"]["shortened_url"]
+        elsif item["update_content"]["update_action"]["action"]["code"] == "COMMENT"
+          item_hash[:name] = "#{item["update_content"]["person"]["first_name"]} #{item["update_content"]["person"]["last_name"]}"
+          item_hash[:name_image_url] = item["update_content"]["person"]["picture_url"]
+          item_hash[:text] = "#{item["update_content"]["person"]["first_name"]} #{item["update_content"]["person"]["last_name"]} commented: #{item["update_content"]["update_action"]["original_update"]["update_content"]["person"]["current_share"]["comment"]}"
+          # ADD DESTINATION URL
+        end
       end
       feed.push(item_hash)
     end
