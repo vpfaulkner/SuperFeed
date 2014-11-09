@@ -32,5 +32,9 @@ ul {
 }
 
 a:hover {
-  
+
+}
+
+.panel {
+  height: 130px;
 }
