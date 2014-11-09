@@ -12,8 +12,8 @@ class HomepagesController < ApplicationController
         @linkedin_feed.each { |message| @feed.push(message) }
       end
       if current_user.authorizations.find_by(provider: :twitter)
-        @twitter_username = @twitter_user["login"]
-        @twitter_response = HTTParty.get("https://api.twitter.com/1.1/search/tweets.json#{@twitter_username}", { :body => {}, :headers => {"authorization" => "token #{twitter_authentication.token}", "User-Agent" => "SuperSuperFeed"} })
+        # @twitter_username = @twitter_user["login"]
+        # @twitter_response = HTTParty.get("https://api.twitter.com/1.1/search/tweets.json#{@twitter_username}", { :body => {}, :headers => {"authorization" => "token #{twitter_authentication.token}", "User-Agent" => "SuperSuperFeed"} })
       end
       @feed.each { |message| message[:timestamp] = message[:timestamp].to_time.iso8601 }
 
