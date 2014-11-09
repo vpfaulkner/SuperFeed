@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141109212858) do
+ActiveRecord::Schema.define(version: 20141109223938) do
 
   create_table "authorizations", force: true do |t|
     t.string   "provider"
@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(version: 20141109212858) do
     t.datetime "updated_at"
   end
 
-  create_table "twits", force: true do |t|
+  create_table "twitters", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
   end

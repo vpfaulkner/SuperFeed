@@ -1,6 +1,6 @@
 class CreateTwitters < ActiveRecord::Migration
   def change
-    create_table :twits do |t|
+    create_table :twitters do |t|
 
       t.timestamps
     end
