@@ -38,6 +38,7 @@ class Github < ActiveRecord::Base
           end
         rescue
         else
+
           feed.push(item_hash)
         end
       end
