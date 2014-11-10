@@ -11,9 +11,13 @@ class User < ActiveRecord::Base
 
     if current_user
       auth.update!(user_id: current_user.id)
-    
+
     else
       unless auth.user
+        if auth_hash["provider"] == "twitter"
+          auth_hash["info"]["email"] = "#{auth_hash["info"]["name"]}@#{auth_hash["info"]["name"]}.com"
+        end
+
         auth.create_user!(name: auth_hash["info"]["name"],
                           email: auth_hash["info"]["email"])
         auth.save!
