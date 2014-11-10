@@ -21,7 +21,7 @@
         <li class="has-dropdown">
           <a href="#">LinkedIn</a>
           <ul class="dropdown">
-            <% if logged_in? && current_user.authorizations.find_by(provider: "linkedin") %>
+            <% if logged_in? &&  current_user.authorizations.find_by(provider: "linkedin") %>
               <li><%= link_to "Disconnect your LinkedIn account", destroy_auth_path("linkedin"), method: :delete %></li>
             <% else %>
               <li><%= link_to "Connect your LinkedIn account", "/auth/linkedin" %></li>
@@ -32,7 +32,7 @@
         <li class="has-dropdown">
           <a href="#">Twitter</a>
           <ul class="dropdown">
-            <% if logged_in? && current_user.authorizations.find_by(provider: "twitter") %>
+            <% if logged_in? &&  current_user.authorizations.find_by(provider: "twitter") %>
               <li><%= link_to "Disconnect your Twitter account", destroy_auth_path("twitter"), method: :delete %></li>
             <% else %>
               <li><%= link_to "Connect your Twitter account", "/auth/twitter" %></li>

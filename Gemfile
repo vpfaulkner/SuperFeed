@@ -49,5 +49,5 @@ group :development, :test do
   gem "pry-rails"
 end
 gem "httparty"
-gem "twitter"
+# gem "twitter"
 gem 'foundation-rails'
