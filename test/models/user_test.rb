@@ -17,7 +17,7 @@ class UserTest < ActiveSupport::TestCase
                     },
                     "credentials" => { "token" => "TOKEN" }
                   }
-      user = User.find_or_create_by_auth_hash(auth_hash)
+      user = User.find_or_create_by_auth_hash(auth_hash, nil)
       assert_not_nil user
       assert_equal "Test User", user.name
       assert user.persisted?
@@ -33,7 +33,7 @@ class UserTest < ActiveSupport::TestCase
                     "credentials" => { "token" => auth.token } }
 
 
-      user = User.find_or_create_by_auth_hash(auth_hash)
+      user = User.find_or_create_by_auth_hash(auth_hash, nil)
       assert_equal auth.user, user
     end
   end

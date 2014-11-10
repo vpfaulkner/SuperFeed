@@ -7,3 +7,7 @@ one:
 two:
   name: MyString
   email: MyString
+
+three:
+  name: MyString
+  email: MyString

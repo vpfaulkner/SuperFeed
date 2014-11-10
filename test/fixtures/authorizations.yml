@@ -11,3 +11,9 @@ two:
   uid: 2
   token: 2
   user: two
+
+three:
+  provider: <%= :github %>
+  uid: 3
+  token: 3
+  user: three
