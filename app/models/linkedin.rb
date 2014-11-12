@@ -1,7 +1,15 @@
 class Linkedin < ActiveRecord::Base
 
+  def self.push_feed(feed, current_user)
+    if current_user.authorizations.find_by(provider: :linkedin)
+      @linkedin_feed = Linkedin.request_data(current_user.authorizations.find_by(provider: :linkedin))
+      @linkedin_feed.each { |message| feed.push(message) }
+    end
+    feed
+  end
+
   def self.request_data(linkedin_authentication)
-    linkedin_response = HTTParty.get("https://api.linkedin.com/v1/people/~/network/updates", { :body => {}, :query => {"count" => "50"}, :headers => {"Authorization" => "Bearer #{linkedin_authentication.token}"}})
+    linkedin_response = HTTParty.get("https://api.linkedin.com/v1/people/~/network/updates", { body: {}, query: {"count" => "100"}, headers: {"Authorization" => "Bearer #{linkedin_authentication.token}"}})
     linkedin_feed = transform_data(linkedin_response)
   end
 

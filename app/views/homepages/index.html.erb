@@ -60,3 +60,15 @@
     </div>
   </a>
 <% end %>
+
+<% if logged_in? %>
+  <%= form_for :user, :url => user_update_path, :html => { :multipart => true } do |form| %>
+    <%= form.hidden_field :id, :value => current_user.id %>
+    <%= form.file_field :avatar %>
+    <%= submit_tag 'Add picture' %>
+  <% end %>
+<% end %>
+
+<%= image_tag current_user.avatar.url %>
+<%= image_tag current_user.avatar.url(:medium) %>
+<%= image_tag current_user.avatar.url(:thumb) %>

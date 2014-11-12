@@ -39,6 +39,9 @@ gem 'omniauth-twitter'
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+
+
+
 gem "quiet_assets", group: :development
 group :development, :test do
   gem "dotenv-rails"
@@ -51,3 +54,12 @@ end
 gem "httparty"
 # gem "twitter"
 gem 'foundation-rails'
+
+group :development, :test do
+  gem "rubocop", require: false
+  gem "rails_best_practices", require: false
+  gem "brakeman", require: false
+end
+
+gem 'sidekiq'
+gem "paperclip", "~> 4.2"

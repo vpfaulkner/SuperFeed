@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   get '/auth/:provider/callback', to: "sesssions#create"
   delete '/:provider/destroy', to: "homepages#destroy_authorization", as: "destroy_auth"
   root 'homepages#index'
+  post '/users/update', to: "users#update", as: "user_update"
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
